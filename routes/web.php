@@ -12,7 +12,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+//home
+use App\Http\Controllers\HomeController;
+Route::get('/', [HomeController::class, 'index']);
+//product
+use App\Http\Controllers\ProductController;
+Route::prefix('category')->group(function () {
+    Route::get('/food-beverage', [ProductController::class, 'foodBeverage']);
+    Route::get('/beauty-health', [ProductController::class, 'beautyHealth']);
+    Route::get('/home-care', [ProductController::class, 'homeCare']);
+    Route::get('/baby-kid', [ProductController::class, 'babyKid']);
 });
+//user
+use App\Http\Controllers\UserController;
+Route::get('/user/{id}/name/{name}', [UserController::class, 'showUser']);
+//penjualan
+use App\Http\Controllers\SalesController;
+Route::get('/sales', [SalesController::class, 'index']);
+
+
+
